@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-class Intro extends StatelessWidget {
+class DescriptionIntro extends StatelessWidget {
 
-  String introTitle;
-  String descriptionVeterinary;
+  String nameIntro;
+  int stars;
+  String descriptionIntro;
 
-  Intro(this.introTitle, this.descriptionVeterinary);
+  DescriptionIntro(this.nameIntro, this.stars, this.descriptionIntro);
 
 
 
@@ -13,7 +14,27 @@ class Intro extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
 
+    final title_stars = Row (
+      children: <Widget>[
+        Container (
+          margin: EdgeInsets.only(
+              top: 220.0,
+              left: 30.0,
+              right: 20.0
+          ),
 
+          child: Text(
+            nameIntro,
+            style: TextStyle(
+                fontSize: 30.0,
+                fontWeight: FontWeight.w900
+            ),
+            textAlign: TextAlign.left,
+          ),
+
+        ),
+      ],
+    );
 
     final description = Container(
       margin: new EdgeInsets.only(
@@ -23,7 +44,7 @@ class Intro extends StatelessWidget {
 
       ),
       child: new Text(
-        descriptionVeterinary,
+        descriptionIntro,
         style: const TextStyle(
             fontSize: 16.0,
             fontWeight: FontWeight.bold,
@@ -35,6 +56,7 @@ class Intro extends StatelessWidget {
 
     return Column(
       children: <Widget>[
+        title_stars,
         description
       ],
     );

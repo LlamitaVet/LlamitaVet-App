@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'description_veterinary.dart';
-//import 'intro.dart';
+import 'intro.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,7 +30,8 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text("LlamitaVet"),
         ),
-        body: new DescriptionVeterinary("Mi veterinario", 5, "Ipsum loreum")
+        //body: new DescriptionVeterinary("Mi veterinario", 5, "Ipsum loreum"),
+        body: new DescriptionIntro("Veterinarios a tu alcance", 5, "Ipsum loreum"),
       ) //MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
