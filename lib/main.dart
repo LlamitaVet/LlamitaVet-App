@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:llamita_vet/login.dart';
 import 'description_veterinary.dart';
 import 'intro.dart';
 
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
           title: Text("LlamitaVet"),
         ),
         //body: new DescriptionVeterinary("Mi veterinario", 5, "Ipsum loreum"),
-        body: new DescriptionIntro("Veterinarios a tu alcance", 5, "Ipsum loreum"),
+        body: new Login(),
       ) //MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
