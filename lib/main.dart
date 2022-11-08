@@ -1,15 +1,33 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:llamita_vet/login.dart';
-import 'package:llamita_vet/single_veterinarians.dart';
-import 'description_veterinary.dart';
-import 'intro.dart';
+import 'package:llamita_vet/screens/login.dart';
+import 'package:llamita_vet/models/veterinarian_model.dart';
+import 'package:llamita_vet/screens/single_veterinarians.dart';
+import 'package:llamita_vet/screens/veterinarian.dart';
+import 'package:http/http.dart' as http;
+import 'package:llamita_vet/screens/veterinarian_list.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  Future<http.Response> fetchAlbum() {
+    return http.get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
+  }
+
+
+  @override
+  State<MyApp> createState() => _MyApp();
+
+}
+
+class _MyApp extends State<MyApp> {
+
 
   // This widget is the root of your application.
   @override
@@ -33,11 +51,17 @@ class MyApp extends StatelessWidget {
           title: Text("LlamitaVet"),
         ),
         //body: new DescriptionVeterinary("Mi veterinario", 5, "Ipsum loreum"),
-        body: new SingleVeterinarians(),
+        body: new VeterinarianList(),
       ) //MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
+
+
+
+
 }
+
+
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -56,6 +80,8 @@ class MyHomePage extends StatefulWidget {
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
+
+
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
