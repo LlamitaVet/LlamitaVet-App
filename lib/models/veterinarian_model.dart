@@ -1,34 +1,30 @@
 class VeterinarianModel {
 
   int? id;
-  String? img;
   String? title;
   String? location;
-  String? phone;
+  int? phone;
+  String? img;
 
-  VeterinarianModel(id, img, title, location, phone) {
-    this.id = id;
-    this.img = img;
-    this.title = title;
-    this.location = location;
-    this.phone = phone;
-  }
+  VeterinarianModel(this.id,
+  this.title,
+  this.location,
+  this.phone,
+  this.img
+  );
 
   VeterinarianModel.fromJson(Map<String, dynamic> json){
     id = json['id'];
-    img = json['img_url'];
-    title = json['title'];
+    title = json['name'];
     location = json['location'];
     phone = json['phone'];
+    img = json['img_url'];
   }
 
   Map<String, dynamic> toMap(){
     return  {
       'id': id!,
-      'img': img!,
-      'title': title!,
-      'location': location!,
-      'phone': phone!
+      'name': title!
     };
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:llamita_vet/screens/veterinarian_detail.dart';
 import 'package:llamita_vet/utils/http_helper.dart';
 import '../models/veterinarian_model.dart';
 
@@ -11,7 +12,7 @@ class VeterinarianList extends StatefulWidget{
 }
 
 class _VeterinarianListState extends State<VeterinarianList> {
-
+  int? veterinariansCount;
   List? veterinarians;
   HttpHelper? helper;
 
@@ -26,18 +27,29 @@ class _VeterinarianListState extends State<VeterinarianList> {
     veterinarians = List.empty();
     veterinarians = await helper?.getVeterinarians();
     setState(() {
+      veterinariansCount = veterinarians?.length;
       veterinarians = veterinarians;
     });
   }
 
 
+
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return ListView.builder(
-        itemBuilder: ((context, index){
-          return VeterinarianItem(veterinarians![index]);
-        })
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Veterinarians"),
+      ),
+      body: ListView.builder(
+          itemCount: (veterinariansCount == null) ? 0 : veterinariansCount,
+          itemBuilder: ((context, index){
+
+              return VeterinarianItem(veterinarians![index]);
+
+          })
+      ),
     );
   }
 }
@@ -55,91 +67,45 @@ class VeterinarianItem extends StatefulWidget {
 
 class _VeterinarianItemState  extends State<VeterinarianItem> {
 
-  final photo = Container(
-    width: 80.0,
-    height: 80.0,
-    decoration: BoxDecoration(
-      shape: BoxShape.circle,
-      image: DecorationImage(
-        fit: BoxFit.cover,
-        image: AssetImage("assets/img/veterinaria_rondon_1.jpg"),
-      ),
-    ),
-  );
-/*
-  final title = Padding(
-    padding: EdgeInsets.only(
-        bottom: 5.0
-    ),
-    child: Text(
-      widget.veterinarianModel.title,
-      textAlign: TextAlign.center,
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
-    ),
-  );
+  late NetworkImage image;
+  final String defaultImage =
+      "https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg";
 
-  final contact_info = Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Text(
-        widget.veterinarianModel.location,
-        textAlign: TextAlign.center,
-      ),
-      Text(" • " + veterinarianModel.phone)
-    ],
-  );*/
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+
+    if (widget.veterinarianModel.img != null) {
+      image = NetworkImage(widget.veterinarianModel.img!);
+    } else {
+      image = NetworkImage(defaultImage);
+    }
+
     return Card(
+      color: Colors.white,
+      elevation: 2.0,
       child: ListTile(
+        onTap: () {
+          MaterialPageRoute route =
+              MaterialPageRoute(builder: (_) => VeterinarianDetail(widget.veterinarianModel));
+          Navigator.push(context, route);
+        },
+        leading: CircleAvatar(
+          backgroundImage: image,
+        ),
         title: Text(widget.veterinarianModel.title!),
+        subtitle: Text(
+          widget.veterinarianModel.location!,
+          maxLines: 2,
+        ),
       ),
     );
-
-
-    /*Padding(
-      padding: EdgeInsets.all(10.0),
-      child: Row(
-        children: [
-          photo,
-          Padding(
-            padding: EdgeInsets.only(
-              left: 10.0,
-            ),
-            child: Container(
-              height: 80.0,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                        bottom: 5.0
-                    ),
-                    child: Text(
-                      widget.veterinarianModel.title!,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        widget.veterinarianModel.location!,
-                        textAlign: TextAlign.center,
-                      ),
-                      Text(" • " + widget.veterinarianModel.phone!)
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
-    );*/
   }
 
 }

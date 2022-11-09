@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
@@ -12,19 +10,21 @@ class HttpHelper {
   final String urlBase = 'https://llamitavetapi.rj.r.appspot.com/veterinarians';
 
   Future<List?> getVeterinarians() async {
-    http.Response result = await http.get(Uri.parse(urlBase));
-
-
+    final String url = urlBase;
+    http.Response result = await http.get(Uri.parse(url));
 
     if(result.statusCode == HttpStatus.ok){
-      final jsonResponse = jsonDecode(result.body);
+      final jsonResponse = json.decode(result.body);
     final veterinariansMap = jsonResponse;
-      List<VeterinarianModel> veterinarians  = veterinariansMap.map((i) => VeterinarianModel.fromJson(i)).toList();
+      List veterinarians  = veterinariansMap.map((i) => VeterinarianModel.fromJson(i)).toList();
 
+
+      print(result.body);
       return veterinarians;
 
     } else{
-      return null;
+      print("falloo");
+      throw Exception("Fallo conexión");
 
     }
   }
