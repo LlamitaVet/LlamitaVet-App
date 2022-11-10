@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget{
       debugShowCheckedModeBanner: false,
       title: "LlamitaVet App",
       theme: ThemeData(
-        primarySwatch: Colors.deepOrange,
+        primarySwatch: Colors.blue,
       ),
       home: const Home(),
     );
