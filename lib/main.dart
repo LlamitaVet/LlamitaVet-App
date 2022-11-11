@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:llamita_vet/screens/login.dart';
 import 'package:llamita_vet/models/veterinarian_model.dart';
-import 'package:llamita_vet/screens/single_veterinarians.dart';
 import 'package:llamita_vet/screens/veterinarian_detail.dart';
 import 'package:http/http.dart' as http;
 import 'package:llamita_vet/screens/veterinarian_list.dart';
@@ -32,6 +31,6 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const VeterinarianList();
+    return Login();
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:llamita_vet/screens/veterinarian_list.dart';
 
 class Login extends StatelessWidget {
 
@@ -30,14 +31,22 @@ class Login extends StatelessWidget {
     final btn_summit = Padding(
       padding: EdgeInsets.all(20.0),
       child: ElevatedButton(
-        onPressed: () {
-          // Respond to button press
+        onPressed: (
+            ) {
+          Navigator.of(context).push(
+              MaterialPageRoute(
+                  builder: (BuildContext context){
+            return const VeterinarianList();
+          },
+          ),
+          );
         },
         child: Text('Login'),
       ),
     );
 
-    return Padding(
+    return Scaffold(
+      body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -50,7 +59,8 @@ class Login extends StatelessWidget {
             btn_summit
           ],
         ),
-      );
+      )
+    );
   }
 
 }
