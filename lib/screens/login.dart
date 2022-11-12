@@ -24,7 +24,7 @@ class Login extends StatelessWidget {
 
     final password = TextFormField(
       decoration: new InputDecoration(
-        labelText: "Enter password1",
+        labelText: "Enter password",
       ),
     );
 
