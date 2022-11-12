@@ -52,6 +52,12 @@ class VeterinarianDetail extends StatelessWidget{
       ],
     );
 
+    final description = Row(
+      children: [
+        Text("Ipsum lorem ashoqhqw dsa.", textAlign: TextAlign.left),
+      ],
+    );
+
     final btn_review = Padding(
       padding: EdgeInsets.all(20.0),
       child: ElevatedButton(
@@ -69,6 +75,25 @@ class VeterinarianDetail extends StatelessWidget{
       ),
     );
 
+    final reviews_title = Padding(
+      padding: EdgeInsets.only(
+          bottom: 5.0,
+          top: 15.0
+      ),
+      child: Text(
+        "Reviews",
+        textAlign: TextAlign.center,
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0),
+      ),
+    );
+
+    final reviews = Column(
+      children: [
+        Text("Name", textAlign: TextAlign.left),
+        Text("Ipsum lorem ashoqhqw dsa.", textAlign: TextAlign.left)
+      ],
+    );
+
 
     return Scaffold(
       appBar: AppBar(
@@ -81,7 +106,12 @@ class VeterinarianDetail extends StatelessWidget{
             photo,
             title,
             contact_info,
-            btn_review
+            description,
+            btn_review,
+            reviews_title,
+            reviews,
+            reviews,
+            reviews
           ],
         )
       ),
