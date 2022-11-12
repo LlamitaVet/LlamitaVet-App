@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:llamita_vet/models/veterinarian_model.dart';
+import 'package:llamita_vet/screens/veterinarian_review.dart';
 
 
 
@@ -51,6 +52,23 @@ class VeterinarianDetail extends StatelessWidget{
       ],
     );
 
+    final btn_review = Padding(
+      padding: EdgeInsets.all(20.0),
+      child: ElevatedButton(
+        onPressed: (
+            ) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (BuildContext context){
+                return VeterinarianReview();
+              },
+            ),
+          );
+        },
+        child: Text('Create review'),
+      ),
+    );
+
 
     return Scaffold(
       appBar: AppBar(
@@ -62,7 +80,8 @@ class VeterinarianDetail extends StatelessWidget{
           children: [
             photo,
             title,
-            contact_info
+            contact_info,
+            btn_review
           ],
         )
       ),
