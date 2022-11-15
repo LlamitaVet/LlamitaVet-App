@@ -1,67 +1,70 @@
 import 'package:flutter/material.dart';
+import 'package:llamita_vet/screens/login.dart';
 
-class DescriptionIntro extends StatelessWidget {
-
-  String nameIntro;
-  int stars;
-  String descriptionIntro;
-
-  DescriptionIntro(this.nameIntro, this.stars, this.descriptionIntro);
-
-
+class Intro extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
 
-    final title_stars = Row (
-      children: <Widget>[
-        Container (
-          margin: EdgeInsets.only(
-              top: 220.0,
-              left: 30.0,
-              right: 20.0
-          ),
+    final title = Padding(
+      padding: EdgeInsets.all(0.0),
+      child: Text(
+        "LlamitaVet",
+        textAlign: TextAlign.center,
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0)
+      ),
+    );
 
-          child: Text(
-            nameIntro,
-            style: TextStyle(
-                fontSize: 30.0,
-                fontWeight: FontWeight.w900
+    final btn_register = Padding(
+      padding: EdgeInsets.all(10.0),
+      child: ElevatedButton(
+        onPressed: (
+            ) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (BuildContext context){
+                return Login();
+              },
             ),
-            textAlign: TextAlign.left,
+          );
+        },
+        child: Text('Sign up'),
+      ),
+    );
+
+    final btn_login = Padding(
+      padding: EdgeInsets.all(10.0),
+      child: ElevatedButton(
+        onPressed: (
+            ) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (BuildContext context){
+                return Login();
+              },
+            ),
+          );
+        },
+        child: Text('Sign in'),
+      ),
+    );
+
+    return Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+
+            children: [
+              title,
+              btn_register,
+              btn_login
+            ],
           ),
-
-        ),
-      ],
+        )
     );
-
-    final description = Container(
-      margin: new EdgeInsets.only(
-          top: 20.0,
-          left: 20.0,
-          right: 20.0
-
-      ),
-      child: new Text(
-        descriptionIntro,
-        style: const TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF56575a)
-        ),
-
-      ),
-    );
-
-    return Column(
-      children: <Widget>[
-        title_stars,
-        description
-      ],
-    );
-
-
   }
 
 }

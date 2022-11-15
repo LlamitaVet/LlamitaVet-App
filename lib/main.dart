@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:llamita_vet/screens/intro.dart';
 import 'package:llamita_vet/screens/login.dart';
 import 'package:llamita_vet/models/veterinarian_model.dart';
 import 'package:llamita_vet/screens/veterinarian_detail.dart';
@@ -31,6 +32,6 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Login();
+    return Intro();
   }
 }
