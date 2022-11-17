@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:llamita_vet/screens/add_veterinarian.dart';
 import 'package:llamita_vet/screens/veterinarian_detail.dart';
 import 'package:llamita_vet/utils/http_helper.dart';
+import 'package:path/path.dart';
 import '../models/veterinarian_model.dart';
+import 'package:http/http.dart' as dart;
 
-
-class VeterinarianList extends StatefulWidget{
+class VeterinarianList extends StatefulWidget {
   const VeterinarianList({super.key});
 
   @override
@@ -17,7 +19,7 @@ class _VeterinarianListState extends State<VeterinarianList> {
   HttpHelper? helper;
 
   @override
-  void initState(){
+  void initState() {
     helper = HttpHelper();
     initialize();
     super.initState();
@@ -32,9 +34,6 @@ class _VeterinarianListState extends State<VeterinarianList> {
     });
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -44,43 +43,41 @@ class _VeterinarianListState extends State<VeterinarianList> {
       ),
       body: ListView.builder(
           itemCount: (veterinariansCount == null) ? 0 : veterinariansCount,
-          itemBuilder: ((context, index){
-
-              return VeterinarianItem(veterinarians![index]);
-
-          })
+          itemBuilder: ((context, index) {
+            return VeterinarianItem(veterinarians![index]);
+          })),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => AddVeteninarian()));
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
 }
 
 class VeterinarianItem extends StatefulWidget {
-
   final VeterinarianModel veterinarianModel;
 
   const VeterinarianItem(this.veterinarianModel, {super.key});
 
   @override
   State<VeterinarianItem> createState() => _VeterinarianItemState();
-
 }
 
-class _VeterinarianItemState  extends State<VeterinarianItem> {
-
+class _VeterinarianItemState extends State<VeterinarianItem> {
   late NetworkImage image;
   final String defaultImage =
       "https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg";
-
 
   @override
   void initState() {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     if (widget.veterinarianModel.img != null) {
       image = NetworkImage(widget.veterinarianModel.img!);
     } else {
@@ -92,8 +89,8 @@ class _VeterinarianItemState  extends State<VeterinarianItem> {
       elevation: 2.0,
       child: ListTile(
         onTap: () {
-          MaterialPageRoute route =
-              MaterialPageRoute(builder: (_) => VeterinarianDetail(widget.veterinarianModel));
+          MaterialPageRoute route = MaterialPageRoute(
+              builder: (_) => VeterinarianDetail(widget.veterinarianModel));
           Navigator.push(context, route);
         },
         leading: CircleAvatar(
@@ -107,5 +104,4 @@ class _VeterinarianItemState  extends State<VeterinarianItem> {
       ),
     );
   }
-
 }
