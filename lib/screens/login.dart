@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:llamita_vet/screens/veterinarian_list.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -58,7 +59,15 @@ class _LoginState extends State<Login> {
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: ElevatedButton(
                 child: const Text('Login'),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return const VeterinarianList();
+                      },
+                    ),
+                  );
+                },
               ),
             )
           ],
