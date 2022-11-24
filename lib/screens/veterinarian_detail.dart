@@ -89,8 +89,7 @@ class VeterinarianDetail extends StatelessWidget{
 
     final reviews = Column(
       children: [
-        Text("Name", textAlign: TextAlign.left),
-        Text("Ipsum lorem ashoqhqw dsa.", textAlign: TextAlign.left)
+        Text(veterinarianModel.review!, textAlign: TextAlign.left)
       ],
     );
 
@@ -109,8 +108,6 @@ class VeterinarianDetail extends StatelessWidget{
             description,
             btn_review,
             reviews_title,
-            reviews,
-            reviews,
             reviews
           ],
         )
