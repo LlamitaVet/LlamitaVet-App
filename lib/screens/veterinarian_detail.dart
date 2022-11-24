@@ -106,7 +106,6 @@ class VeterinarianDetail extends StatelessWidget{
             photo,
             title,
             contact_info,
-            description,
             btn_review,
             reviews_title,
             reviews,
