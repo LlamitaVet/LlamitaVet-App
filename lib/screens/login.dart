@@ -1,66 +1,69 @@
 import 'package:flutter/material.dart';
-import 'package:llamita_vet/screens/veterinarian_list.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
+  const Login({super.key});
 
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-
-    final title = Padding(
-      padding: EdgeInsets.all(10.0),
-      child: Text(
-      "Login",
-      textAlign: TextAlign.center,
-      ),
-    );
-
-    final email = TextFormField(
-      decoration: new InputDecoration(
-        labelText: "Enter email or username",
-      ),
-    );
-
-    final password = TextFormField(
-      decoration: new InputDecoration(
-        labelText: "Enter password",
-      ),
-    );
-
-    final btn_summit = Padding(
-      padding: EdgeInsets.all(20.0),
-      child: ElevatedButton(
-        onPressed: (
-            ) {
-          Navigator.of(context).push(
-              MaterialPageRoute(
-                  builder: (BuildContext context){
-            return const VeterinarianList();
-          },
-          ),
-          );
-        },
-        child: Text('Login'),
-      ),
-    );
-
     return Scaffold(
+      appBar: AppBar(
+        title: Text('LlamitaVet'),
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-
+        padding: EdgeInsets.all(10),
+        child: ListView(
           children: [
-            title,
-            email,
-            password,
-            btn_summit
+            Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.all(10),
+              child: Text(
+                'Sign In',
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(10),
+              child: TextField(
+                controller: emailController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Email',
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(10),
+              child: TextField(
+                controller: passwordController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Password',
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {},
+              child: const Text('Forgot password'),
+            ),
+            Container(
+              height: 50,
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: ElevatedButton(
+                child: const Text('Login'),
+                onPressed: () {},
+              ),
+            )
           ],
         ),
-      )
+      ),
     );
   }
-
 }
