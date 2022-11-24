@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:llamita_vet/screens/add_veterinarian.dart';
 import 'package:llamita_vet/screens/veterinarian_detail.dart';
+import 'package:llamita_vet/utils/db_helper.dart';
 import 'package:llamita_vet/utils/http_helper.dart';
 import 'package:path/path.dart';
 import '../models/veterinarian_model.dart';
@@ -67,13 +68,26 @@ class VeterinarianItem extends StatefulWidget {
 }
 
 class _VeterinarianItemState extends State<VeterinarianItem> {
+  late bool favorite;
+  late DbHelper dbHelper;
   late NetworkImage image;
   final String defaultImage =
       "https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg";
 
   @override
   void initState() {
+    favorite = false;
+    dbHelper = DbHelper();
+    isFavorite();
     super.initState();
+  }
+
+  Future isFavorite() async {
+    await dbHelper.openDb();
+    final result = await dbHelper.isFavorite(widget.veterinarianModel);
+    setState(() {
+      favorite = result;
+    });
   }
 
   @override
@@ -93,6 +107,16 @@ class _VeterinarianItemState extends State<VeterinarianItem> {
               builder: (_) => VeterinarianDetail(widget.veterinarianModel));
           Navigator.push(context, route);
         },
+        trailing: IconButton(
+          icon: Icon(Icons.favorite,
+              color: favorite ? Colors.blueAccent : Colors.grey),
+          onPressed: () {
+            favorite?dbHelper.delete(widget.veterinarianModel): dbHelper.insert(widget.veterinarianModel);
+            setState(() {
+              favorite = !favorite;
+            });
+          },
+        ),
         leading: CircleAvatar(
           backgroundImage: image,
         ),
