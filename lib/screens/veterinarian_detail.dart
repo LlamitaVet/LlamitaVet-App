@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:llamita_vet/models/veterinarian_model.dart';
 import 'package:llamita_vet/screens/veterinarian_review.dart';
@@ -89,7 +91,8 @@ class VeterinarianDetail extends StatelessWidget{
 
     final reviews = Column(
       children: [
-        Text(veterinarianModel.review!, textAlign: TextAlign.left)
+        if (veterinarianModel.review != null)
+          Text(veterinarianModel.review!, textAlign: TextAlign.left)
       ],
     );
 
