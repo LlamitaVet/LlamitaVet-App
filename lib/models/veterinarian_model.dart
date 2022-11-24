@@ -5,12 +5,14 @@ class VeterinarianModel {
   String? location;
   int? phone;
   String? img;
+  String? review;
 
   VeterinarianModel(this.id,
   this.title,
   this.location,
   this.phone,
-  this.img
+  this.img,
+  this.review
   );
 
   VeterinarianModel.fromJson(Map<String, dynamic> json){
@@ -19,6 +21,7 @@ class VeterinarianModel {
     location = json['location'];
     phone = json['phone'];
     img = json['img_url'];
+    review = json['review'];
   }
 
   Map<String, dynamic> toMap(){
