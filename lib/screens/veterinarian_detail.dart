@@ -1,14 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:llamita_vet/models/veterinarian_model.dart';
-import 'package:llamita_vet/screens/veterinarian_review.dart';
-
+import 'package:llamita_vet/screens/veterinarian_list.dart';
+import 'package:llamita_vet/utils/base_api.dart';
+import 'package:http/http.dart' as http;
 
 
 class VeterinarianDetail extends StatelessWidget{
-
   final VeterinarianModel veterinarianModel;
 
-  const VeterinarianDetail(this.veterinarianModel, {super.key});
+  VeterinarianDetail(this.veterinarianModel, {super.key});
+  final TextEditingController _controllerReview = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +48,8 @@ class VeterinarianDetail extends StatelessWidget{
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
       Text(
-      veterinarianModel.location!,
-      textAlign: TextAlign.center,
+        veterinarianModel.location!,
+        textAlign: TextAlign.center,
       ),
       Text(" • " + veterinarianModel.phone!.toString())
       ],
@@ -58,27 +61,50 @@ class VeterinarianDetail extends StatelessWidget{
       ],
     );
 
-    final btn_review = Padding(
+    final space1 = Padding(
+      padding: EdgeInsets.only(
+          bottom: 25.0,
+          top: 25.0
+      ),
+    );
+
+    final review_title = Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Text(
+        "Write a review",
+        textAlign: TextAlign.center,
+      ),
+    );
+    final review_text = TextFormField(
+      controller: _controllerReview,
+      decoration: new InputDecoration(
+        labelText: "Write a review",
+      ),
+    );
+
+    final btn_post = Padding(
       padding: EdgeInsets.all(20.0),
       child: ElevatedButton(
-        onPressed: (
-            ) {
+        onPressed: () {
+          createReview();
+          /*
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context){
-                return VeterinarianReview();
+                return VeterinarianList();
               },
             ),
           );
+          */
         },
-        child: Text('Create review'),
+        child: Text('Post review'),
       ),
     );
 
     final reviews_title = Padding(
       padding: EdgeInsets.only(
           bottom: 5.0,
-          top: 15.0
+          top: 55.0
       ),
       child: Text(
         "Reviews",
@@ -90,7 +116,8 @@ class VeterinarianDetail extends StatelessWidget{
     final reviews = Column(
       children: [
         if (veterinarianModel.review != null)
-          Text(veterinarianModel.review!, textAlign: TextAlign.left)
+          for (int i = 0; i < veterinarianModel.review!.length; i++)
+            Text(veterinarianModel.review![i], textAlign: TextAlign.left)
       ],
     );
 
@@ -106,7 +133,10 @@ class VeterinarianDetail extends StatelessWidget{
             photo,
             title,
             contact_info,
-            btn_review,
+            space1,
+            review_title,
+            review_text,
+            btn_post,
             reviews_title,
             reviews
           ],
@@ -115,5 +145,35 @@ class VeterinarianDetail extends StatelessWidget{
     );
 
   }
-
+  createReview() async {
+    var id = veterinarianModel.id;
+    var name = veterinarianModel.title;
+    var location = veterinarianModel.location;
+    var phone = veterinarianModel.phone;
+    var img_url = veterinarianModel.img;
+    //List<String>reviewsCollection = (veterinarianModel.review as List<dynamic>).cast<String>();
+    var review = _controllerReview.text;
+    //reviewsCollection.add(review);
+    print("Pan Bimbo");
+    print(review);
+    if (review.isNotEmpty) {
+      String url = BASE_API + "veterinarians";
+      var bodyData = json.encode({
+        "id": id,
+        "name": name,
+        "location": location,
+        "phone": phone,
+        "img_url": img_url,
+        "review": review
+      });
+      var response = await http.post(Uri.parse(url),
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: bodyData);
+      print(response.statusCode);
+      print(response.body);
+    }
+  }
 }
