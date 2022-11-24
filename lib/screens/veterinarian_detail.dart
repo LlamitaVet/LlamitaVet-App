@@ -89,7 +89,8 @@ class VeterinarianDetail extends StatelessWidget{
 
     final reviews = Column(
       children: [
-        Text(veterinarianModel.review!, textAlign: TextAlign.left)
+        if (veterinarianModel.review != null)
+          Text(veterinarianModel.review!, textAlign: TextAlign.left)
       ],
     );
 
