@@ -151,9 +151,11 @@ class VeterinarianDetail extends StatelessWidget{
     var location = veterinarianModel.location;
     var phone = veterinarianModel.phone;
     var img_url = veterinarianModel.img;
-    //List<String>reviewsCollection = (veterinarianModel.review as List<dynamic>).cast<String>();
-    var review = _controllerReview.text;
-    //reviewsCollection.add(review);
+    var review;
+    if (veterinarianModel.review != null){
+      review = veterinarianModel.review;
+    }
+    review.add(_controllerReview.text);
     print("Pan Bimbo");
     print(review);
     if (review.isNotEmpty) {
@@ -164,7 +166,7 @@ class VeterinarianDetail extends StatelessWidget{
         "location": location,
         "phone": phone,
         "img_url": img_url,
-        "review": review
+        "review": [review]
       });
       var response = await http.post(Uri.parse(url),
           headers: {
