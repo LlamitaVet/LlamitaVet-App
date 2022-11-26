@@ -123,6 +123,7 @@ class VeterinarianDetail extends StatelessWidget{
 
 
     return Scaffold(
+      resizeToAvoidBottomInset : false,
       appBar: AppBar(
         title: Text(veterinarianModel.title!),
       ),
@@ -154,8 +155,12 @@ class VeterinarianDetail extends StatelessWidget{
     var review;
     if (veterinarianModel.review != null){
       review = veterinarianModel.review;
+      review.add(_controllerReview.text);
     }
-    review.add(_controllerReview.text);
+    else{
+      review = _controllerReview.text;
+    }
+
     print("Pan Bimbo");
     print(review);
     if (review.isNotEmpty) {
